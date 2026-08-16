@@ -1,0 +1,15 @@
+.git/
+.gocache/
+.gomodcache/
+.gopath/
+bug_fix_prompts.md
+private_tests/
+patches/
+gold_patch.patch
+claude-run-instructions.txt
+submission-draft.txt
+case-summary.md
+*.exe
+*.test
+*.out
+*.log

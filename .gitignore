@@ -1,0 +1,41 @@
+# 修复提示词（不能提交，不能让被测模型看到）
+bug_fix_prompts.md
+
+# 出题人私有材料
+private_tests/
+patches/
+gold_patch.patch
+claude-run-instructions.txt
+submission-draft.txt
+case-summary.md
+
+# Go 编译产物
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go 工作目录
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker 构建缓存
+.gocache/
+.gomodcache/
+.gopath/
+
+# 临时文件
+*.tmp
+*.log
