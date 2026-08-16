@@ -28,12 +28,6 @@ func (s *Store) Register(email, password string, roles []string) (User, error) {
 	if normalizedEmail == "" {
 		return User{}, errors.New("email is required")
 	}
-	s.mu.RLock()
-	_, exists := s.users[normalizedEmail]
-	s.mu.RUnlock()
-	if exists {
-		return User{}, ErrAlreadyExists
-	}
 	passwordHash, err := HashPassword(password)
 	if err != nil {
 		return User{}, err
@@ -43,8 +37,11 @@ func (s *Store) Register(email, password string, roles []string) (User, error) {
 	}
 	created := User{Email: normalizedEmail, PasswordHash: passwordHash, Roles: append([]string(nil), roles...)}
 	s.mu.Lock()
+	defer s.mu.Unlock()
+	if _, exists := s.users[normalizedEmail]; exists {
+		return User{}, ErrAlreadyExists
+	}
 	s.users[normalizedEmail] = created
-	s.mu.Unlock()
 	return created, nil
 }
 func (s *Store) Authenticate(email, password string) (User, error) {
