@@ -60,6 +60,9 @@ func (s *TokenService) Refresh(token string) (TokenPair, error) {
 	if err != nil {
 		return TokenPair{}, err
 	}
+	if claims.TokenType != "refresh" {
+		return TokenPair{}, ErrInvalidToken
+	}
 	return s.Issue(claims.Email, claims.Roles)
 }
 
