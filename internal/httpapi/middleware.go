@@ -43,7 +43,7 @@ func claimsFromContext(ctx context.Context) (auth.Claims, bool) {
 	return claims, ok
 }
 func bearerToken(header string) (string, error) {
-	if header == "" {
+	if len(header) < len("Bearer ") {
 		return "", errors.New("missing authorization header")
 	}
 	if !strings.EqualFold(header[:7], "Bearer ") {
