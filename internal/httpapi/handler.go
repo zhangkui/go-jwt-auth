@@ -119,6 +119,9 @@ func decodeJSON(request *http.Request, target any) error {
 	if err := decoder.Decode(target); err != nil {
 		return err
 	}
+	if err := decoder.Decode(&struct{}{}); !errors.Is(err, io.EOF) {
+		return errors.New("request body must contain one JSON value")
+	}
 	return nil
 }
 func publicUser(current user.User) map[string]any {
