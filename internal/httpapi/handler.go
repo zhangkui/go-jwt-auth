@@ -63,7 +63,7 @@ func (h *Handler) register(writer http.ResponseWriter, request *http.Request) {
 		writeError(writer, http.StatusBadRequest, "invalid request body")
 		return
 	}
-	created, err := h.users.Register(payload.Email, payload.Password, payload.Roles)
+	created, err := h.users.Register(payload.Email, payload.Password, nil)
 	if err != nil {
 		if errors.Is(err, user.ErrAlreadyExists) {
 			writeError(writer, http.StatusConflict, "email is already registered")
